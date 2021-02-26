@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "firstName": "Cassandra",
+        "lastName": "Heil",
+        "occupation": "Intern",
+        "ssnNumber": "123456789",
+        "active": true
+    },
+    {
+        "id": 2,
+        "firstName": "Liam",
+        "lastName": "West",
+        "occupation": "Sales Associate",
+        "ssnNumber": "234567891",
+        "active": true
+    },
+    {
+        "id": 3,
+        "firstName": "Roselynn",
+        "lastName": "Quick",
+        "occupation": "Bank Teller",
+        "ssnNumber": "345678912",
+        "active": true
+    },
+    {
+        "id": 4,
+        "firstName": "Regina",
+        "lastName": "Mehaphy",
+        "occupation": "Artist",
+        "ssnNumber": "456789123",
+        "active": true
+    }
+]
