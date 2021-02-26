@@ -4,7 +4,7 @@
         "firstName": "Cassandra",
         "lastName": "Heil",
         "occupation": "Intern",
-        "ssnNumber": "123456789",
+        "ssn": "123456789",
         "active": true
     },
     {
@@ -12,7 +12,7 @@
         "firstName": "Liam",
         "lastName": "West",
         "occupation": "Sales Associate",
-        "ssnNumber": "234567891",
+        "ssn": "234567891",
         "active": true
     },
     {
@@ -20,7 +20,7 @@
         "firstName": "Roselynn",
         "lastName": "Quick",
         "occupation": "Bank Teller",
-        "ssnNumber": "345678912",
+        "ssn": "345678912",
         "active": true
     },
     {
@@ -28,7 +28,7 @@
         "firstName": "Regina",
         "lastName": "Mehaphy",
         "occupation": "Artist",
-        "ssnNumber": "456789123",
+        "ssn": "456789123",
         "active": true
     }
 ]
