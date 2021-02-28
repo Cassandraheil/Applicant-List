@@ -6,7 +6,7 @@ import App from "./App"
 function Routes(){
     return(
         <>
-        <h1>Applicant List for Roostify!</h1>
+        <h1>Applicant List for Roostify</h1>
         <Router>
              <Switch>   {/*switch renders one exclusive route that matches the input */}
                 <Route exact path="/" component={App}/> {/* this will render the app component */}

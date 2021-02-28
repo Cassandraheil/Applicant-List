@@ -3,7 +3,8 @@ import "./style.css"
 
 
 class Modal extends React.Component {
-    render(props) {
+  render(props) {
+      console.log("props", this.props)
       // this will not render the component if the state is false
         if(!this.props.show){
             return null;

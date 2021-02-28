@@ -5,7 +5,7 @@
         "lastName": "Heil",
         "occupation": "Intern",
         "ssn": "123456789",
-        "img": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.trafalgar.com%2Freal-word%2F6-animals-not-endangered-species-list%2F&psig=AOvVaw1a7W-iTOLm7zUpyUqhQ4hK&ust=1614452845610000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCND2rd6fiO8CFQAAAAAdAAAAABAD"
+        "img": "https://miro.medium.com/max/11520/0*pAypSD1ZSCCw0NcL"
     },
     {
         "id": 2,
@@ -30,5 +30,5 @@
         "occupation": "Artist",
         "ssn": "456789123",
         "img": "https://hips.hearstapps.com/esq.h-cdn.co/assets/15/23/1433261929-25-toughest-animals-lede.jpg"
-    }
+    }    
 ]

@@ -26,16 +26,6 @@ class Applicant extends React.Component {
     })
   };
 
-  updateApplicant = id => {     
-    console.log("this shall be updated", id)
-  }
-
-  addApplicant = e => {
-    e.preventDefault();
-
-      console.log("something happening",this.state.applicants.firstName)
-  }
-
   removeApplicant = e => {
     // filtering through the applicants id's, and showing only the id's not equal to the applicants removed.
     const applicants = this.state.applicants.filter(applicant => applicant.id !== this.state.id);
@@ -54,7 +44,7 @@ class Applicant extends React.Component {
           onClose={this.onClose}
           show={this.state.show}    // sends the show state to the modal page
           removeApplicant={this.removeApplicant}  // passes the removeapplicant function
-          >Are you sure you would like to remove them from the applicants list?</Modal>
+          >Are you sure you would like to remove this applicant from the list?</Modal>
 
          {/* Run through all the tasks I set inside it for every applicant in the json*/}
         {this.state.applicants.map(applicant => 
@@ -64,11 +54,12 @@ class Applicant extends React.Component {
               lastName={applicant.lastName}
               occupation={applicant.occupation}
               ssn={applicant.ssn}
+              img={applicant.img}
               showModal={this.showModal}              // passes the showmodal function
               updateApplicant={this.updateApplicant}  // passes the update applicant function
           />
         )}
-        <button><Link to="/form" className={window.location.pathname === "/form" ? "nav-link active" : "nav-link"}>Add Applicant</Link></button>
+        <Link to="/form" className={window.location.pathname === "/form" ? "nav-link active" : "nav-link"}>Add Applicant</Link>   {/* this link will switch to the /form route */}
       </>
     )}
 }
