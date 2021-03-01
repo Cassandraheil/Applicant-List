@@ -89,11 +89,13 @@ class Applicant extends React.Component {
           updateCard.img = this.state.img
 
           // updatedCard.push(updateCard)
+          this.removeApplicant()
 
           this.setState({
             applicant: updateCard   // updates the applicant in state
           }, () => {
-            console.log("this should be the state", applicant);
+            console.log("this should be the upadted state", applicant);
+
           });
         }
       })
