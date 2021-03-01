@@ -77,8 +77,7 @@ class Applicant extends React.Component {
   sortForUpdate = event => {  // will determine if button is an update or adding
       event.preventDefault();   // doesn't let the page reload on click
       this.state.applicants.map(applicant =>  //maps through the applicants
-      {  let updatedCard= []
-      if(this.state.id !== applicant.id){   //if the id doesn't exist in the applicants add a New applicant
+      { if(this.state.id !== applicant.id){   //if the id doesn't exist in the applicants add a New applicant
         this.addApplicant()
         }if(this.state.id === applicant.id) { //if the id does exist, update that applicant
           const updateCard = {...applicant}   // updated card = that applicant
@@ -87,9 +86,6 @@ class Applicant extends React.Component {
           updateCard.occupation = this.state.occupation
           updateCard.ssn = this.state.ssn
           updateCard.img = this.state.img
-
-          // updatedCard.push(updateCard)
-          this.removeApplicant()
 
           this.setState({
             applicant: updateCard   // updates the applicant in state
