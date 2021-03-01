@@ -89,7 +89,7 @@ class Applicant extends React.Component {
     this.state.applicants.map(applicant =>
     {  let updatedCard= []
      if(this.state.id !== applicant.id){
-      // this.addApplicant()
+      this.addApplicant()
       }if(this.state.id === applicant.id) {
         const updateCard = {...applicant}
         updateCard.firstName = this.state.firstName;
