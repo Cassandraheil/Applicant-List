@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom"
 import "./style.css"
 
 function Form(props) {
@@ -7,11 +6,11 @@ function Form(props) {
         <>
             <form className="form">
                 <input
-                    value={props.firstName}
-                    name="firstName"
-                    onChange={props.handleInputChange}
-                    type="text"
-                    placeholder="First Name"
+                    value={props.firstName} //the default value is grabbed
+                    name="firstName"        //name of this input
+                    onChange={props.handleInputChange}  //allows input to update immediately,so input box can be typed in
+                    type="text"             //type of thing that will be typed in 
+                    placeholder="First Name"    //what appears as a placeholder in the input
                 />
                 <input
                     value={props.lastName}
@@ -42,10 +41,10 @@ function Form(props) {
                     placeholder="Image URL(Optional)"
                 />
 
-                <button className="btn"
-                    onClick={props.sortForUpdate}
-                >update/add</button>
+                {/* will call the sortUpdate function */}
+                <button className="btn" onClick={props.sortForUpdate}>update/add</button>   
             </form>
+            {/* calls the showHome function Note: outside of the form because it automatically was called to refresh page */}
             <button className="btn" onClick={props.showHome}>Cancel</button>
         </>
     )

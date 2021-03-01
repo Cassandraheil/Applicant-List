@@ -12,27 +12,14 @@ class Applicant extends React.Component {
   state = {
     applicants,     // applicants in the applicant json file
     show: false,    //to show the modal or not
-    id: null,    // recieves id of the applicant selected to be removed
-    firstName: "", // recieves name of the applicant selected to be removed
+    id: null,       // recieves id of the applicant selected to be removed/updated/added
+    firstName: "",  // recieves name of the applicant selected to be removed/updated/added
     lastName: "",
     occupation: "",
     ssn: "",
     img: "https://militaryhealthinstitute.org/wp-content/uploads/sites/37/2019/10/blank-person-icon-9.jpg",
     form: "none",
     home: "inline"
-  };
-  // ------------------------this is the modal--------------------------------//
-  showModal = (id, firstName) => {
-    this.setState({
-      show: true,     // set modal to true so the modal shows
-      id: id,     // sets id of the applicant clicked
-      firstName: firstName
-    });
-  };
-  onClose = e => {
-    this.setState({
-      show: false   // set modal to false to hide it
-    });
   };
   //------------------------- Shows the form or the homepage-------------------->
   showForm = e => {
@@ -44,21 +31,37 @@ class Applicant extends React.Component {
   showHome = e => {
     this.setState({
       form: "none",
-      home: "block"
+      home: "inline"
     })
   };
 
-  //----------------------------------remove applicant-------------------------//
+  // ------------------------this is the Modal--------------------------------//
+  showModal = (id, firstName, lastName) => {
+    this.setState({
+      show: true,     // set modal to true so the modal shows
+      id: id,     // sets id of the applicant clicked
+      firstName: firstName,  // Sets firstname of applicant clicked
+      lastName: lastName
+    });
+  };
+  onClose = e => {
+    this.setState({
+      show: false   // set modal to false to hide it
+    });
+  };
+  
+  //----------------------------------Remove Applicant-------------------------//
   removeApplicant = e => {
     // filtering through the applicants id's, and showing only the id's not equal to the applicants removed.
     const applicants = this.state.applicants.filter(applicant => applicant.id !== this.state.id);
-    // this will set the state to the new filtered array we have above
-    this.setState({ applicants })
+
+    this.setState({ applicants })   // this will set the state to the new filtered array we have above
+
     this.onClose()  // call the onClose function to close the modal after removing applicant.
   };
 
-  //-------------------------links the update button to the form page------------->
-  linkUpdateForm = props => {
+  //--------------------------------------Udpate Section----------------------->
+  linkUpdateForm = props => { // sets the state to applicant selected to update, then shows form
     this.setState({
       id: props.id,
       firstName: props.firstName,
@@ -66,15 +69,40 @@ class Applicant extends React.Component {
       occupation: props.occupation,
       ssn: props.ssn,
       img: props.img
-    }, () => {
+    }, () => {    //callback funtion allows time for state to udate before function is called
       this.showForm()
     });
   };
 
-  //---------------------------------Form Update and Add functions---------------------// 
-  newApplicant = e => {
-    let newId = this.state.applicants.length + 1
-    this.setState({     // resets inputs so user can put in new applicant
+  sortForUpdate = event => {  // will determine if button is an update or adding
+      event.preventDefault();   // doesn't let the page reload on click
+      this.state.applicants.map(applicant =>  //maps through the applicants
+      {  let updatedCard= []
+      if(this.state.id !== applicant.id){   //if the id doesn't exist in the applicants add a New applicant
+        this.addApplicant()
+        }if(this.state.id === applicant.id) { //if the id does exist, update that applicant
+          const updateCard = {...applicant}   // updated card = that applicant
+          updateCard.firstName = this.state.firstName;
+          updateCard.lastName = this.state.lastName;
+          updateCard.occupation = this.state.occupation
+          updateCard.ssn = this.state.ssn
+          updateCard.img = this.state.img
+
+          // updatedCard.push(updateCard)
+
+          this.setState({
+            applicant: updateCard   // updates the applicant in state
+          }, () => {
+            console.log("this should be the state", applicant);
+          });
+        }
+      })
+    }
+
+  //--------------------------New applicants and Add/update button---------------------// 
+  newApplicant = e => {   // resets inputs so user can put in new applicant
+    let newId = this.state.applicants.length + 1  // gives this new applicant a unique id
+    this.setState({     
       id: newId,
       firstName: "",
       lastName: "",
@@ -82,37 +110,14 @@ class Applicant extends React.Component {
       ssn: "",
       img: "https://militaryhealthinstitute.org/wp-content/uploads/sites/37/2019/10/blank-person-icon-9.jpg",
     })
-    this.showForm()
+    this.showForm()   // shows input Form
   };
-  sortForUpdate = event => {
-    event.preventDefault();
-    this.state.applicants.map(applicant =>
-    {  let updatedCard= []
-     if(this.state.id !== applicant.id){
-      this.addApplicant()
-      }if(this.state.id === applicant.id) {
-        const updateCard = {...applicant}
-        updateCard.firstName = this.state.firstName;
-        updateCard.lastName = this.state.lastName;
-        updateCard.occupation = this.state.occupation
-        updateCard.ssn = this.state.ssn
-        updateCard.img = this.state.img
-
-        updatedCard.push(updateCard)
-
-        this.setState({
-          applicant: updatedCard
-        }, () => {
-          console.log("this should be the state", applicant);
-        });
-      }
-    })
-  }
+  
   addApplicant = e => {
-    // e.preventDefault();
-    const newApplicants = this.state.applicants.concat(
+  // sets newApplicants = to the applicantions list plus the applicant set in state
+    const newApplicants = this.state.applicants.concat(   
       [{
-        id: this.state.applicants.length + 1,
+        id: this.state.id,
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         occupation: this.state.occupation,
@@ -120,12 +125,11 @@ class Applicant extends React.Component {
         img: this.state.img
       }])
     
-
-    this.setState({ applicants: newApplicants }, () => {
-      // console.log("this should be the state", this.state.applicants);
-    });
+    this.setState({             // sets the applicants to newApplicants 
+      applicants: newApplicants 
+    })
     
-    this.showHome()
+    this.showHome()     // shows the home
   }
 
 
@@ -146,7 +150,9 @@ class Applicant extends React.Component {
     return (
       <>
         <h1>Applicants for Roostify</h1>
-        <div style={{ display: this.state.home }}>
+        
+        {/* allows this div to be shown or not  */}
+        <div style={{ display: this.state.home }}> 
           {/* passing information to the modal, so the modal can access these functions  */}
           <Modal
             onClose={this.onClose}
@@ -171,6 +177,8 @@ class Applicant extends React.Component {
           <button className="btn" onClick={this.newApplicant}>Add Applicant</button>   {/* this button will show you the form */}
         </div>
 
+
+        {/* allows this div to be shown or not  */}
         <div style={{ display: this.state.form }}>
           <Form
             firstName={this.state.firstName}

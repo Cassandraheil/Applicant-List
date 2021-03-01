@@ -13,7 +13,7 @@ function ApplicationCard(props) { // props from app.js will provide data to fill
 
             <div className="info">
                 <ul>
-                    {/* passing in props(the information passed down from app.js) */}
+                    {/* passing in props(the information passed down from App.js) */}
                     <li>First Name: {props.firstName}</li>
                     <li>Last Name: {props.lastName}</li>
                     <li>Occupation: {props.occupation}</li>
@@ -26,7 +26,7 @@ function ApplicationCard(props) { // props from app.js will provide data to fill
 
 
 
-                <button className="cardBtn" onClick={id => props.showModal(props.id, props.firstName)}> Remove</button>
+                <button className="cardBtn" onClick={id => props.showModal(props.id, props.firstName, props.lastName)}> Remove</button>
             </div>
 
         </div>
