@@ -1,5 +1,5 @@
 import './App.css';
-import React, {Component} from "react";
+import React, { Component } from "react";
 import applicants from "./applicants.json"
 import ApplicationCard from "./components/applicantCard"
 import Modal from "./components/Modal"
@@ -9,7 +9,7 @@ import Form from "./components/Form"
 
 class Applicant extends React.Component {
   // Setting the state 
-  state ={
+  state = {
     applicants,     // applicants in the applicant json file
     show: false,    //to show the modal or not
     id: null,    // recieves id of the applicant selected to be removed
@@ -21,12 +21,11 @@ class Applicant extends React.Component {
     form: "none",
     home: "inline"
   };
-// ------------------------this is the modal--------------------------------//
+  // ------------------------this is the modal--------------------------------//
   showModal = (id, firstName) => {
-    console.log("what is id here", firstName)
     this.setState({
       show: true,     // set modal to true so the modal shows
-      id: id ,     // sets id of the applicant clicked
+      id: id,     // sets id of the applicant clicked
       firstName: firstName
     });
   };
@@ -40,7 +39,7 @@ class Applicant extends React.Component {
     this.setState({
       form: "inline",
       home: "none"
-    }) 
+    })
   };
   showHome = e => {
     this.setState({
@@ -48,110 +47,145 @@ class Applicant extends React.Component {
       home: "block"
     })
   };
-  
+
   //----------------------------------remove applicant-------------------------//
   removeApplicant = e => {
     // filtering through the applicants id's, and showing only the id's not equal to the applicants removed.
     const applicants = this.state.applicants.filter(applicant => applicant.id !== this.state.id);
     // this will set the state to the new filtered array we have above
-    this.setState({applicants})
-    this.onClose()  // call the onClose function to close the modal after removing applicant
+    this.setState({ applicants })
+    this.onClose()  // call the onClose function to close the modal after removing applicant.
   };
-  
+
   //-------------------------links the update button to the form page------------->
   linkUpdateForm = props => {
-      this.setState({
-        id: props.id,
-        firstName: props.firstName,
-        lastName: props.lastName,
-        occupation: props.occupation,
-        ssn: props.ssn,
-        img: props.img
-      }, () => {
-        this.showForm()
-      });  
+    this.setState({
+      id: props.id,
+      firstName: props.firstName,
+      lastName: props.lastName,
+      occupation: props.occupation,
+      ssn: props.ssn,
+      img: props.img
+    }, () => {
+      this.showForm()
+    });
   };
 
-  //---------------------------------Form Update and Add functions---------------------//
-    updateApplicant = id => {     
-        console.log("this shall be updated", id)
-        console.log("this should be the state", this.state.applicants)
-    }
-    
-    addApplicant = e => {
-        e.preventDefault();
-          const newApplicants = this.state.applicants.concat(
-            [{id: this.state.applicants.length + 1,
-            firstName: this.state.firstName, 
-            lastName: this.state.lastName,
-            occupation: this.state.occupation,
-            ssn: this.state.ssn,
-            img: this.state.img}]
-          )
+  //---------------------------------Form Update and Add functions---------------------// 
+  newApplicant = e => {
+    let newId = this.state.applicants.length + 1
+    this.setState({     // resets inputs so user can put in new applicant
+      id: newId,
+      firstName: "",
+      lastName: "",
+      occupation: "",
+      ssn: "",
+      img: "https://militaryhealthinstitute.org/wp-content/uploads/sites/37/2019/10/blank-person-icon-9.jpg",
+    })
+    this.showForm()
+  };
+  sortForUpdate = event => {
+    event.preventDefault();
+    this.state.applicants.map(applicant =>
+    {  let updatedCard= []
+     if(this.state.id !== applicant.id){
+      // this.addApplicant()
+      }if(this.state.id === applicant.id) {
+        const updateCard = {...applicant}
+        updateCard.firstName = this.state.firstName;
+        updateCard.lastName = this.state.lastName;
+        updateCard.occupation = this.state.occupation
+        updateCard.ssn = this.state.ssn
+        updateCard.img = this.state.img
 
+        updatedCard.push(updateCard)
 
-        this.setState({ applicants: newApplicants }, () => {
-            console.log("this should be the state", this.state.applicants);
-          }); 
-       
-          this.showHome()
-    }
-    
-    //this function allows the input to update immediately 
-    handleInputChange = e => {
-        // getting the value and name of the input that caused the change
-        const {name, value} = e.target;
-        // setting state to the new values
         this.setState({
-            [name]: value
+          applicant: updatedCard
+        }, () => {
+          console.log("this should be the state", applicant);
         });
-    }
+      }
+    })
+  }
+  addApplicant = e => {
+    // e.preventDefault();
+    const newApplicants = this.state.applicants.concat(
+      [{
+        id: this.state.applicants.length + 1,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        occupation: this.state.occupation,
+        ssn: this.state.ssn,
+        img: this.state.img
+      }])
+    
 
-  
+    this.setState({ applicants: newApplicants }, () => {
+      // console.log("this should be the state", this.state.applicants);
+    });
+    
+    this.showHome()
+  }
+
+
+
+  //this function allows the input to update immediately 
+  handleInputChange = e => {
+    // getting the value and name of the input that caused the change
+    const { name, value } = e.target;
+    // setting state to the new values
+    this.setState({
+      [name]: value
+    });
+  }
+
+
   //This will bring all the components together and render them on the browser
   render() {
     return (
       <>
-      <h1>Applicants for Roostify</h1>
-      <div style={{display: this.state.home}}>
-        {/* passing information to the modal, so the modal can access these functions  */}
-        <Modal 
+        <h1>Applicants for Roostify</h1>
+        <div style={{ display: this.state.home }}>
+          {/* passing information to the modal, so the modal can access these functions  */}
+          <Modal
             onClose={this.onClose}
             show={this.state.show}    // sends the show state to the modal page
             removeApplicant={this.removeApplicant}  // passes the removeapplicant function
-            >Are you sure you would like to remove {this.state.firstName} from the list?</Modal>
+          >Are you sure you would like to remove {this.state.firstName} from the list?</Modal>
 
           {/* Run through all the tasks I set inside it for every applicant in the json*/}
-          {this.state.applicants.map(applicant => 
+          {this.state.applicants.map(applicant =>
             <ApplicationCard    // sending information to the application card file through props
-                id={applicant.id}
-                firstName={applicant.firstName}
-                lastName={applicant.lastName}
-                occupation={applicant.occupation}
-                ssn={applicant.ssn}
-                img={applicant.img}
-                showModal={this.showModal}              // passes the showmodal function
-                linkUpdateForm={this.linkUpdateForm}  // passes the update applicant function              
+              id={applicant.id}
+              firstName={applicant.firstName}
+              lastName={applicant.lastName}
+              occupation={applicant.occupation}
+              ssn={applicant.ssn}
+              img={applicant.img}
+              showModal={this.showModal}              // passes the showmodal function
+              linkUpdateForm={this.linkUpdateForm}  // passes the update applicant function              
             />
           )}
 
-          <button className="btn" onClick={this.showForm}>Add Applicant</button>   {/* this button will show you the form */}
+          <button className="btn" onClick={this.newApplicant}>Add Applicant</button>   {/* this button will show you the form */}
         </div>
 
-        <div style={{display: this.state.form}}>
+        <div style={{ display: this.state.form }}>
           <Form
-          firstName={this.state.firstName}
-          lastName={this.state.lastName}
-          occupation={this.state.occupation}
-          ssn={this.state.ssn}
-          img={this.state.img}
-          handleInputChange={this.handleInputChange}
-          addApplicant={this.addApplicant}
-          showHome={this.showHome}
+            firstName={this.state.firstName}
+            lastName={this.state.lastName}
+            occupation={this.state.occupation}
+            ssn={this.state.ssn}
+            img={this.state.img}
+            handleInputChange={this.handleInputChange}
+            sortForUpdate={this.sortForUpdate}
+            showHome={this.showHome}
           />
         </div>
       </>
-    )}
+    )
+  }
 }
 
 export default Applicant;
