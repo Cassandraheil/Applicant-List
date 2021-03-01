@@ -20,3 +20,6 @@ img{
     margin: 20px;
     background-color: white;
 }
+#updateBtn{
+    all: unset;
+}

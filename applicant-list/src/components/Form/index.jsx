@@ -1,53 +1,54 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom"
-import applicants from "../../applicants.json"
 import "./style.css"
 
-
-class Form extends React.Component {
-    state ={
-        applicants
-    }
-
-    updateApplicant = id => {     
-        console.log("this shall be updated", id)
-        
-      }
-    
-      addApplicant = e => {
-        e.preventDefault();
-          console.log("something happening")
-      } 
-
-    render(){
+function Form(props){
     return(
-        <div className="form">
+        <>
+        <form className="form">
             <input
+            value={props.firstName}
+            name="firstName"
+            onChange={props.handleInputChange}
             type="text"
             placeholder="First Name"
             />
             <input
+            value={props.lastName}
+            name="lastName"
+            onChange={props.handleInputChange}
             type="text"
             placeholder="Last Name"
             />
             <input
+            value={props.occupation}
+            name="occupation"
+            onChange={props.handleInputChange}
             type="text"
             placeholder="Occupation"
             />
             <input
-            type="text"
+            value={props.ssn}
+            name="ssn"
+            onChange={props.handleInputChange}
+            type="number"
             placeholder="SSN"
             />
             <input
+            value={props.img}
+            name="img"
+            onChange={props.handleInputChange}
             type="text"
             placeholder="Image URL(Optional)"
             />
-            {/* https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png */}
 
-         <button className="btn" onClick={this.addApplicant}>update/add</button>   
-         <Link to="/">Cancel</Link>
-        </div>
-    )}
+         <button className="btn" 
+         onClick={props.addApplicant}
+         >update/add</button>  
+        </form>
+        <button className="btn" onClick={props.showHome}>Cancel</button>
+        </>
+    )
 }
 
 export default Form
