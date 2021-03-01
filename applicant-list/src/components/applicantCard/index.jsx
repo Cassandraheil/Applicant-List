@@ -22,7 +22,7 @@ function ApplicationCard(props){ // props from app.js will provide data to fill 
 
 
 
-                <button className="cardBtn" onClick={() => props.linkUpdateForm(props.id)}>Update</button>
+            <button className="cardBtn" onClick={() => props.linkUpdateForm(props)}>Update</button>
 
 
                

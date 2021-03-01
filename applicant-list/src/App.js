@@ -13,7 +13,7 @@ class Applicant extends React.Component {
     applicants,     // applicants in the applicant json file
     show: false,    //to show the modal or not
     id: null,    // recieves id of the applicant selected to be removed
-    firstName: "karen", // recieves name of the applicant selected to be removed
+    firstName: "", // recieves name of the applicant selected to be removed
     lastName: "",
     occupation: "",
     ssn: "",
@@ -40,24 +40,15 @@ class Applicant extends React.Component {
     this.setState({
       form: "inline",
       home: "none"
-    }, () => {
-      console.log("for/home", this.state.form, this.state.home);
-    });  
+    }) 
   };
   showHome = e => {
     this.setState({
       form: "none",
       home: "block"
-    }, () => {
-      console.log("for/home", this.state.form, this.state.home);
-    });  
+    })
   };
-  //-------------------------links the update button to the form page------------->
-  linkUpdateForm = id => {
-    
-      console.log("is this happening")
-  };
-
+  
   //----------------------------------remove applicant-------------------------//
   removeApplicant = e => {
     // filtering through the applicants id's, and showing only the id's not equal to the applicants removed.
@@ -66,7 +57,20 @@ class Applicant extends React.Component {
     this.setState({applicants})
     this.onClose()  // call the onClose function to close the modal after removing applicant
   };
-
+  
+  //-------------------------links the update button to the form page------------->
+  linkUpdateForm = props => {
+      this.setState({
+        id: props.id,
+        firstName: props.firstName,
+        lastName: props.lastName,
+        occupation: props.occupation,
+        ssn: props.ssn,
+        img: props.img
+      }, () => {
+        this.showForm()
+      });  
+  };
 
   //---------------------------------Form Update and Add functions---------------------//
     updateApplicant = id => {     
@@ -90,7 +94,7 @@ class Applicant extends React.Component {
             console.log("this should be the state", this.state.applicants);
           }); 
        
-
+          this.showHome()
     }
     
     //this function allows the input to update immediately 
@@ -106,14 +110,6 @@ class Applicant extends React.Component {
   
   //This will bring all the components together and render them on the browser
   render() {
-    switch(this.state.form){
-      case false:
-        console.log("false")
-      case true:
-      console.log("true")
-      
-    }
-
     return (
       <>
       <h1>Applicants for Roostify</h1>
