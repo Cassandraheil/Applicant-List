@@ -49,7 +49,7 @@ class Applicant extends React.Component {
       show: false   // set modal to false to hide it
     });
   };
-  
+
   //----------------------------------Remove Applicant-------------------------//
   removeApplicant = e => {
     // filtering through the applicants id's, and showing only the id's not equal to the applicants removed.
@@ -75,32 +75,21 @@ class Applicant extends React.Component {
   };
 
   sortForUpdate = event => {  // will determine if button is an update or adding
-      event.preventDefault();   // doesn't let the page reload on click
-      this.state.applicants.map(applicant =>  //maps through the applicants
-      { if(this.state.id !== applicant.id){   //if the id doesn't exist in the applicants add a New applicant
-        this.addApplicant()
-        }if(this.state.id === applicant.id) { //if the id does exist, update that applicant
-          const updateCard = {...applicant}   // updated card = that applicant
-          updateCard.firstName = this.state.firstName;
-          updateCard.lastName = this.state.lastName;
-          updateCard.occupation = this.state.occupation
-          updateCard.ssn = this.state.ssn
-          updateCard.img = this.state.img
+    event.preventDefault();   // doesn't let the page reload on click
 
-          this.setState({
-            applicant: updateCard   // updates the applicant in state
-          }, () => {
-            console.log("this should be the upadted state", applicant);
+    // filtering through the applicants id's, and showing only the id's not equal to the applicants removed.
+      const applicants = this.state.applicants.filter(applicant => applicant.id !== this.state.id);
 
+      // updates applicants by remmoving the id selected
+        this.setState({ applicants }, () => { 
+          this.addApplicant() // then calls addApplicant to add the updated person
           });
-        }
-      })
-    }
+  }
 
   //--------------------------New applicants and Add/update button---------------------// 
   newApplicant = e => {   // resets inputs so user can put in new applicant
     let newId = this.state.applicants.length + 1  // gives this new applicant a unique id
-    this.setState({     
+    this.setState({
       id: newId,
       firstName: "",
       lastName: "",
@@ -110,10 +99,10 @@ class Applicant extends React.Component {
     })
     this.showForm()   // shows input Form
   };
-  
+
   addApplicant = e => {
-  // sets newApplicants = to the applicantions list plus the applicant set in state
-    const newApplicants = this.state.applicants.concat(   
+    // sets newApplicants = to the applicantions list plus the applicant set in state
+    const newApplicants = this.state.applicants.concat(
       [{
         id: this.state.id,
         firstName: this.state.firstName,
@@ -122,11 +111,11 @@ class Applicant extends React.Component {
         ssn: this.state.ssn,
         img: this.state.img
       }])
-    
+
     this.setState({             // sets the applicants to newApplicants 
-      applicants: newApplicants 
+      applicants: newApplicants
     })
-    
+
     this.showHome()     // shows the home
   }
 
@@ -148,9 +137,9 @@ class Applicant extends React.Component {
     return (
       <>
         <h1>Applicants for Roostify</h1>
-        
+
         {/* allows this div to be shown or not  */}
-        <div style={{ display: this.state.home }}> 
+        <div style={{ display: this.state.home }}>
           {/* passing information to the modal, so the modal can access these functions  */}
           <Modal
             onClose={this.onClose}
