@@ -19,7 +19,7 @@ class Applicant extends React.Component {
     ssn: "",
     img: "https://militaryhealthinstitute.org/wp-content/uploads/sites/37/2019/10/blank-person-icon-9.jpg",
     form: "none",
-    home: "inline"
+    home: "inline-block"
   };
   //------------------------- Shows the form or the homepage-------------------->
   showForm = e => {
@@ -31,7 +31,7 @@ class Applicant extends React.Component {
   showHome = e => {
     this.setState({
       form: "none",
-      home: "inline"
+      home: "inline-block"
     })
   };
 
